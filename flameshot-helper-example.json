@@ -1,0 +1,16 @@
+{
+    "directory": "~/Pictures/Screenshots",
+    "fname": "%Y-%m/flameshot-%Y-%m-%d-%H_%M-%S.%f.png",
+    "sftp": {
+        "enabled": true,
+        "host": "somehost.org",
+        "user": "myuser",
+        "port": 22,
+        "directory": "/home/myuser/www/screenshots/",
+        "key": "~/.ssh/id_ed25519",
+        "baseurl": "https://myhost.org/",
+        "clipboard": true
+    },
+    "open": false,
+    "notify": true
+}
