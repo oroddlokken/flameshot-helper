@@ -2,7 +2,9 @@
 
 I miss ShareX
 
-Move `flameshot-helper-example.json` to `~/.config/oroddlokken/flameshot-helper.json` and edit the values.
+Move `flameshot-helper-example.json` to `~/.config/oroddlokken/flameshot-helper.json` and edit the values.  
+
+I added a custom shortcut to KDE that makes `ctrl+shift+prtscrn` run this script.
 
 ## Features:
   - Save screenshots in a local folder
