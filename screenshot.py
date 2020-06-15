@@ -82,13 +82,13 @@ def kde_set_clipboard(text):
            "setClipboardContents",
            text]
 
-    subprocess.run(cmd)
+    subprocess.check_output(cmd)
 
 
 def xdg_open(path):
     cmd = ["xdg-open", path]
 
-    subprocess.run(cmd)
+    subprocess.check_output(cmd)
 
 
 def read_config(path):
