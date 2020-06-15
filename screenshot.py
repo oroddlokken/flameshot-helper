@@ -227,12 +227,16 @@ def main(args):
         logger.info("Uploading screenshot with rsync")
         subprocess.check_output(rsync_cmd)
 
-        xdg_path = paths.remote_url
-        notify_body = paths.remote_url
-
-        if config["sftp"].get("clipboard", False):
+        if (config["sftp"].get("clipboard", False) and config["sftp"].get("baseurl", False)):
             logger.info("Adding {} to clipboard".format(paths.remote_url))
             kde_set_clipboard(paths.remote_url)
+
+        if config["sftp"].get("baseurl", False):
+            xdg_path = paths.remote_url
+            notify_body = paths.remote_url
+        else:
+            xdg_path = None
+            notify_body = paths.remote_path
 
     else:
         logger.info("SFTP upload is not configured.")
@@ -241,7 +245,7 @@ def main(args):
         logger.info("Notifying KDE with filename and path/url")
         kde_notify(notify_summary, notify_body)
 
-    if config.get("open", False):
+    if (xdg_path and config.get("open", False)):
         logger.info("Opening {} with xdg-open".format(xdg_path))
         xdg_open(xdg_path)
 
