@@ -12,3 +12,6 @@ I added a custom shortcut to KDE that makes `ctrl+shift+prtscrn` run this script
   - Generate a URL for the upload screenshot
   - Copy the URL to clipboard
   - Send a KDE notification when the screenshot is uploaded
+
+## Todo:
+  - Upload with pysftp

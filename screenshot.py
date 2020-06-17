@@ -17,12 +17,11 @@ formatter = logging.Formatter(fmt='%(asctime)s %(levelname)s %(message)s',
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 
-logger = logging.getLogger('selca')
+logger = logging.getLogger('screenshot')
 logger.addHandler(handler)
 
 # don't propagate, otherwise anything at WARNING level or
 # above will be repeated by the root logger
-logger.propagate = False
 logger.setLevel(logging.INFO)
 
 
@@ -69,10 +68,10 @@ def flameshot():
     return o
 
 
-def kde_notify(fname, url):
-    cmd = ["notify-send", fname, url]
+def notify_send(summary, body):
+    cmd = ["notify-send", summary, body]
 
-    subprocess.run(cmd)
+    return subprocess.run(cmd)
 
 
 def kde_set_clipboard(text):
@@ -82,13 +81,13 @@ def kde_set_clipboard(text):
            "setClipboardContents",
            text]
 
-    subprocess.check_output(cmd)
+    return subprocess.check_output(cmd)
 
 
 def xdg_open(path):
     cmd = ["xdg-open", path]
 
-    subprocess.check_output(cmd)
+    return subprocess.check_output(cmd)
 
 
 def read_config(path):
@@ -227,7 +226,8 @@ def main(args):
         logger.info("Uploading screenshot with rsync")
         subprocess.check_output(rsync_cmd)
 
-        if (config["sftp"].get("clipboard", False) and config["sftp"].get("baseurl", False)):
+        if (config["sftp"].get("clipboard", False)
+                and config["sftp"].get("baseurl", False)):
             logger.info("Adding {} to clipboard".format(paths.remote_url))
             kde_set_clipboard(paths.remote_url)
 
@@ -243,7 +243,7 @@ def main(args):
 
     if config.get("notify", False):
         logger.info("Notifying KDE with filename and path/url")
-        kde_notify(notify_summary, notify_body)
+        notify_send(notify_summary, notify_body)
 
     if (xdg_path and config.get("open", False)):
         logger.info("Opening {} with xdg-open".format(xdg_path))
